@@ -74,5 +74,6 @@ def loginController(body:UserSchems,db:Session):
 
 
 # token send
-def Authtoken(request:Request):
-    pass
+def Authtoken(request:Request,db:Session):
+    print("request:",request)
+    return("done")
