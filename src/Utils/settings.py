@@ -1,3 +1,4 @@
+# data base connection from .env file
 from pydantic_settings import BaseSettings,SettingsConfigDict
 
 class settings(BaseSettings):

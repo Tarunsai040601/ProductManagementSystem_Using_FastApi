@@ -1,3 +1,6 @@
+# here i am taken helper.py as middleware for protect route
+
+
 from fastapi import HTTPException,status,Request,Depends
 from sqlalchemy.orm import Session
 from src.Utils.settings import settings
@@ -18,12 +21,15 @@ def Authtoken(request:Request,db:Session=Depends(get_db)):
     )
     token=auth_header.split(" ")[-1]
 
+# here storing the token and secret key also
     data=jwt.decode(token,settings.SECRET_KEY,settings.ALGORITHM)
     print('data:',data)
     user_id=data.get("id")
     exp_data=data.get("exp")
 
     current_time=datetime.now().timestamp()
+
+    # here comparing exp_time and present time
     if current_time > exp_data:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -37,6 +43,5 @@ def Authtoken(request:Request,db:Session=Depends(get_db)):
             )
 
     
-    
-
+# if  auth token is matched it return the token details
     return({"done:":{"email":User.email,"id":User.id}})
