@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from src.Tasks.dtos import TaskSchema
 from src.Tasks.Models import TaskModel
 from fastapi import HTTPException
+
 # get data
 def get_controller(db:Session):
     task=db.query(TaskModel).all()

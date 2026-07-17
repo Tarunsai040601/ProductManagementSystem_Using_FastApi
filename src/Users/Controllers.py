@@ -74,12 +74,31 @@ def loginController(body:UserSchems,db:Session):
 
 
 # token send
-def Authtoken(request:Request,db:Session):
-    print("request:",request.headers.get("authorization"))
-    token=request.headers.get("authorization")
-    print("token:",token)
-    token=token.split(" ")[-1]
+# def Authtoken(request:Request,db:Session):
+#     print("request:",request.headers.get("authorization"))
+#     token=request.headers.get("authorization")
+#     print("token:",token)
+#     token=token.split(" ")[-1]
 
-    data=jwt.decode(token,settings.SECRET_KEY,settings.ALGORITHM)
-    print('data:',data)
-    return("done")
+#     data=jwt.decode(token,settings.SECRET_KEY,settings.ALGORITHM)
+#     print('data:',data)
+#     user_id=data.get("id")
+#     exp_data=data.get("exp")
+
+#     current_time=datetime.now().timestamp()
+#     if current_time > exp_data:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="your unauthorized"
+#             )
+#     User=db.query(UserModel).filter(UserModel.id==user_id).first()
+#     if not User:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="your unauthorized"
+#             )
+
+    
+    
+
+#     return({"done:":{"email":User.email,"id":User.id}})
