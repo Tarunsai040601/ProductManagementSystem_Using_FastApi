@@ -1,8 +1,11 @@
 from fastapi import APIRouter,Depends,status,Request
 from src.Utils.db import get_db
 from src.Users.dtos import UserSchems
+from src.Users.dtos import loginScheam
 from src.Users import Controllers
 from sqlalchemy.orm import Session
+from src.Utils.helper import Authtoken
+from src.Utils import helper
 
 # path
 userRouter=APIRouter(prefix="/auth")
@@ -14,10 +17,10 @@ def register(body:UserSchems,db:Session=Depends(get_db)):
 
 # login router
 @userRouter.post("/login",status_code=status.HTTP_201_CREATED)
-def login(body:UserSchems,db:Session=Depends(get_db)):
+def login(body:loginScheam,db:Session=Depends(get_db)):
     return Controllers.loginController(body,db)
 
 # authentication
 @userRouter.get("/get",status_code=status.HTTP_200_OK)
 def authentication(request:Request,db:Session=Depends(get_db)):
-    return Controllers.Authtoken(request,db)
+    return helper.Authtoken(request,db)

@@ -5,6 +5,7 @@ from src.Users.Models import UserModel
 from pwdlib import PasswordHash
 from datetime import datetime, timedelta
 from src.Utils.settings import settings
+from src.Users.dtos import loginScheam
 import jwt
 
 
@@ -33,6 +34,7 @@ def registerController(body:UserSchems,db:Session):
 
     # Create user
     new_user = UserModel(
+        name=body.name,
         email=body.email,
         password=hashed_password
     )
@@ -49,7 +51,7 @@ def registerController(body:UserSchems,db:Session):
 
 
 # login controller
-def loginController(body:UserSchems,db:Session):
+def loginController(body:loginScheam,db:Session):
     is_User=db.query(UserModel).filter(UserModel.email==body.email).first()
     if not is_User:
         raise HTTPException(
@@ -63,7 +65,7 @@ def loginController(body:UserSchems,db:Session):
         detail="Invalid password"
     )
     exp_time=datetime.now()+timedelta(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    token=jwt.encode({"id":is_User.id,"email":is_User.email,"exp":exp_time},settings.SECRET_KEY,settings.ALGORITHM)
+    token=jwt.encode({"id":is_User.id,"email":is_User.email,"name":is_User.name,"exp":exp_time},settings.SECRET_KEY,settings.ALGORITHM)
 
     return {
     "message": "Login successful",

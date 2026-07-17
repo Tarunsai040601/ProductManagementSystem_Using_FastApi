@@ -5,5 +5,6 @@ class UserModel(Base):
     __tablename__="userRegister"
     __table_args__={"schema":"ProjectSchema"}
     id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)

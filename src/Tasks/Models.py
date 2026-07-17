@@ -6,6 +6,7 @@ class TaskModel(Base):
     __table_args__ = {"schema": "ProjectSchema"}
 
     id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
+    ProductTitle = Column(String, nullable=False)
     description = Column(String, nullable=False)
-    is_completed = Column(Boolean, default=False)
+    Price=Column(String)
+    Comments=Column(String)

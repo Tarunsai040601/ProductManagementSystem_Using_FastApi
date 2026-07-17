@@ -14,9 +14,10 @@ def createController(body: TaskSchema, db: Session):
     data = body.model_dump()
 
     new_task = TaskModel(
-        title=data["title"],
+        ProductTitle=data["ProductTitle"],
         description=data["description"],
-        is_completed=data["is_completed"]
+        Price=data["Price"],
+        Comments=data["Comments"]
     )
 
     db.add(new_task)
@@ -42,9 +43,10 @@ def updatedTask(body:TaskSchema,task_id:int,db:Session):
     one_task=db.query(TaskModel).get(task_id)
     if not one_task:
         return HTTPException(404,detail=f"task is not found on id:{task_id}")
-    one_task.title=body.title
+    one_task.ProductTitle=body.ProductTitle
     one_task.description=body.description
-    one_task.is_completed=body.is_completed
+    one_task.Price=body.Price
+    one_task.Comments=body.Comments
 
     db.add(one_task)
     db.commit()
