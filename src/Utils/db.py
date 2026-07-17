@@ -1,16 +1,16 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker,declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
+
 from src.Utils.settings import settings
 
-
-Base=declarative_base()
-engine=create_engine(url=settings.DATABASECONNECT)
-LocalSession=sessionmaker(bind=engine)
+Base = declarative_base()
+engine = create_engine(url=settings.DATABASECONNECT)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def get_db():
-    session=LocalSession()
+    db = SessionLocal()
     try:
-        yield session
+        yield db
     finally:
-        session.close()
+        db.close()

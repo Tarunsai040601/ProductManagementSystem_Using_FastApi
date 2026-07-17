@@ -75,5 +75,11 @@ def loginController(body:UserSchems,db:Session):
 
 # token send
 def Authtoken(request:Request,db:Session):
-    print("request:",request)
+    print("request:",request.headers.get("authorization"))
+    token=request.headers.get("authorization")
+    print("token:",token)
+    token=token.split(" ")[-1]
+
+    data=jwt.decode(token,settings.SECRET_KEY,settings.ALGORITHM)
+    print('data:',data)
     return("done")

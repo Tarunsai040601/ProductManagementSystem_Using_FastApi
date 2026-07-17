@@ -4,9 +4,8 @@ from src.Users.dtos import UserSchems
 from src.Users import Controllers
 from sqlalchemy.orm import Session
 
-
+# path
 userRouter=APIRouter(prefix="/auth")
-
 
 # register router
 @userRouter.post("/register",status_code=status.HTTP_201_CREATED)
@@ -17,7 +16,6 @@ def register(body:UserSchems,db:Session=Depends(get_db)):
 @userRouter.post("/login",status_code=status.HTTP_201_CREATED)
 def login(body:UserSchems,db:Session=Depends(get_db)):
     return Controllers.loginController(body,db)
-
 
 # authentication
 @userRouter.get("/get",status_code=status.HTTP_200_OK)
